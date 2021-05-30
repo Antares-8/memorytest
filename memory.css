@@ -1,0 +1,89 @@
+section#header {
+  text-align: center;
+}
+
+/* Point commun de toutes les cartes */
+fruit.card {
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  background-image: url("cards.png");
+  background-repeat: no-repeat;
+}
+
+fruit#image1 {
+  background-position: 0 0px;
+}
+
+fruit#image2 {
+  background-position: 0 -100px;
+}
+
+fruit#image3 {
+  background-position: 0 -200px;
+}
+
+fruit#image4 {
+  background-position: 0 -300px;
+}
+
+fruit#image5 {
+  background-position: 0 -400px;
+}
+
+fruit#image6 {
+  background-position: 0 -500px;
+}
+
+fruit#image7 {
+  background-position: 0 -600px;
+}
+
+fruit#image8 {
+  background-position: 0 -700px;
+}
+
+fruit#image9 {
+  background-position: 0 -800px;
+}
+
+fruit#image10 {
+  background-position: 0 -900px;
+}
+
+fruit#image11 {
+  background-position: 0 -1000px;
+}
+
+fruit#image12 {
+  background-position: 0 -1100px;
+}
+
+fruit#image13 {
+  background-position: 0 -1200px;
+}
+
+fruit#image14 {
+  background-position: 0 -1300px;
+}
+
+fruit#image15 {
+  background-position: 0 -1400px;
+}
+
+fruit#image16 {
+  background-position: 0 -1500px;
+}
+
+fruit#image17 {
+  background-position: 0 -1600px;
+}
+
+fruit#image18 {
+  background-position: 0 -1700px;
+}
+
+section#main {
+  width: 700px;
+  margin: 0 auto;
+}/*# sourceMappingURL=memory.css.map */
