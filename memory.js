@@ -1,10 +1,14 @@
 // Le fichier js contient toute la logique du jeu : c'est grâce aux fonctions suivantes que nous allons pouvoir jouer !
 
 // Commençons par définir les constantes et les variables dont nous aurons besoin
-
-const nbCards = 28;
-// var nbDouble = 14;
-const nbCardsMax = 18;
+const nbCards = 28; // Nombre de cartes sur le plateau de jeu
+const nbPairs = 14; // Nombre de paires à trouver pour gagner la partie
+var nbPairsFound = 0; // Nombre de paires trouvées à l'instant T par le joueur
+const nbCardsMax = 18; // Nombre maximal de cartes que nous avons AVANT de charger le plateau de jeu
+const face = "verso"; // La carte est soit recto, soit verso. Au départ du jeu, elle est face cachée, donc verso.
+const displayTime = 750; // Temps d'affichage des cartes une fois retournées et en cas d'échec à trouver une paire
+var boardGame = []; // Tableau des cartes présentes sur le plateau de jeu
+var pick = []; // Cartes retournées par le joueur.
 
 // J'ai repris l'image d'exemple où le jeu comporte 28 cartes donc 14 paires. Et on a 18 cartes donc potentiellement 36 paires, mais ça fait peut-être beaucoup pour retrouver les paires.
 // Donc il faut choisir 14 cartes parmis les 18.
@@ -51,15 +55,80 @@ function shuffle(array) {
     return array;
 }
 
-// Pour créer le jeu, on peut utiliser une fonction anonyme  et jquery : 
+// Pour créer le jeu, on peut utiliser une fonction anonyme et jquery : 
 $(function() {
-    let boardGame = createBoardGame();
+    boardGame = createBoardGame();
     // Remplissage du jeu avec les cartes choisies aléatoirement que l'on envoie dans la section principale du html.
     // A chaque rechargement de la page, les images sont différentes ;-)
     for(let i = 0; i < boardGame.length; i++) {
-        $("<fruit>", {
-            "id": "image" + (boardGame[i]),
-            "class": "card"
-        }).appendTo("section#main")
+        let image = "recto" + boardGame[i];
+        let card = $("<fruit>", {
+            "id": i,
+            "class": "card ".concat(face, " ", image)
+        })
+        // On lance les actions de jeu au click sur la carte
+        card.on("click", action);
+        // Ajout de la carte dans le HTML
+        card.appendTo("section#main");
     };
 });
+
+// On doit pouvoir retourner les cartes au clic sur l'une d'elle. La carte est identifiée par un id. 
+// Le plateau est chargé avec les cartes verso, on change la classe de la carte pour afficher le recto.
+function returnCard(id) {
+    let element = $("fruit#" + id);
+    if (element.hasClass("recto")) {
+        element.removeClass("recto");
+        element.addClass("verso");
+    } else {
+        element.removeClass("verso");
+        element.addClass("recto");
+    }
+}
+
+// Déroulé du jeu : liste des actions à effectuer en fonction des cartes piochées
+function action(event) {
+    // On récupère l'id de la carte choisie, on l'ajoute au tableau de la pioche et on l'affiche en la retournant
+    let cardNumber = event.target.id;
+    pick.push(cardNumber); 
+    returnCard(cardNumber); //on affiche la carte en la retournant
+
+    // Il faut avoir les 2 cartes pour faire la comparaison des cartes
+    if (pick.length > 1) {
+        if (sameCards()) {
+            // Les cartes retournées sont identiques : on incrémente le nombre de paires trouvées
+            nbPairsFound++;
+            // Si le nombre de paires trouvées est supérieur ou égal au nombre de paires existant dsur le plateau, on a gagné !
+            if (nbPairsFound >= nbPairs) {
+                // TODO: créer une méthode pour ce moment (et les actions):
+                // - arrêter le chronomètre
+                // - enlever les "onclick" partout
+                // - arrêter le setTimeout de fin de partie
+                // alert(unescape(encodeURIComponent("Vous avez GAGNÉ !")));
+                alert("CHAMPION(NE) !");
+            }
+        } else {
+            // Les cartes sont différentes, on les laisse affichées quelques secondes et on les retourne
+             setTimeout(returnCard, displayTime, pick[0]);
+             setTimeout(returnCard, displayTime, pick[1]);
+        };
+        // On n'oublie pas de remettre le tableau de la pioche à vide pour le prochain tour !
+        pick = [];
+    }
+}
+
+// Une fois les 2 cartes retournées, on les compare et on renvoie un booléen puisqu'il n'y a que 2 résultats possibles ;-)
+function sameCards() {
+    // On ajoute les cartes piochées par le joueur dans le tableau pick[], qui ne contient au maximum que 2 éléments. Ce sont les numéros des cartes.
+    let id1 = pick[0];
+    let id2 = pick[1];
+    // Il faut rattacher le numéro des cartes au tableau des fruits (boardGame[]). 
+    let fruit1 = boardGame[id1];
+    let fruit2 = boardGame[id2];
+
+    if (fruit1 == fruit2) {
+        return true;
+    } else {
+        return false;
+    }
+}
