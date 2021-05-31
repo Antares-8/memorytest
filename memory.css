@@ -2,8 +2,20 @@ section#header {
   text-align: center;
 }
 
+section#time {
+  text-align: center;
+}
+section#time progress.progressBar {
+  position: relative;
+  right: 5px;
+  height: 3em;
+  width: 50%;
+  margin-bottom: 25px;
+}
+
 section#main {
-  width: 800px;
+  margin: auto;
+  width: 750px;
   margin: 0 auto;
 }
 section#main fruit.card {
@@ -17,7 +29,7 @@ section#main fruit.recto {
   background-repeat: no-repeat;
 }
 section#main fruit.verso {
-  background-color: #807e7e;
+  background-color: #50dbdb;
 }
 section#main fruit.recto1 {
   background-position: 0 0px;

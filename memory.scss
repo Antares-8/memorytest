@@ -2,8 +2,20 @@ section#header {
     text-align: center;
 }
 
+section#time {
+    text-align: center;
+    progress.progressBar {
+        position: relative;
+        right: 5px;
+        height: 3em;
+        width: 50%;
+        margin-bottom: 25px;
+    }
+}
+
 section#main {
-    width: 800px;
+    margin: auto;
+    width: 750px;
     margin: 0 auto;
 
     fruit.card {
@@ -20,13 +32,16 @@ section#main {
     
     fruit.verso {
         background: {
-            color: rgb(128, 126, 126);
+            // color: rgb(128, 126, 126);
+            color: rgb(80, 219, 219);
         }
     }
     
+    //TODO : voir si on peut pas faire autrement avec cette suite de lignes
     fruit.recto1 {
         background-position: 0 0px;
     }
+    
     
     fruit.recto2 {
         background-position: 0 -100px;
@@ -96,3 +111,4 @@ section#main {
         background-position: 0 -1700px;
     }
 } 
+

@@ -9,11 +9,12 @@ const face = "verso"; // La carte est soit recto, soit verso. Au départ du jeu,
 const displayTime = 750; // Temps d'affichage des cartes une fois retournées et en cas d'échec à trouver une paire
 var boardGame = []; // Tableau des cartes présentes sur le plateau de jeu
 var pick = []; // Cartes retournées par le joueur.
+var durationGame = 2; // Temps de jeu en minutes.
 
 // J'ai repris l'image d'exemple où le jeu comporte 28 cartes donc 14 paires. Et on a 18 cartes donc potentiellement 36 paires, mais ça fait peut-être beaucoup pour retrouver les paires.
-// Donc il faut choisir 14 cartes parmis les 18.
+// Donc il faut choisir 14 cartes parmi les 18.
 // On peut donc mélanger les 18 cartes pour avoir une distribution aléatoire, et choisir les 14 premières.
-// On double ensuite ces 14 cartes pour avoir des paires et on remélange
+// On double ensuite ces 14 cartes pour avoir des paires et on re-mélange.
 function createBoardGame() {
     let cardsList = [];
     let keptCards = [];
@@ -71,7 +72,48 @@ $(function() {
         // Ajout de la carte dans le HTML
         card.appendTo("section#main");
     };
+    // Affichage et lancement du timer
+    timer();
+    startTimer();
+    // demarreChronometre();
 });
+
+// Nous avons besoin d'un compteur de temps avec barre de progression pour pouvoir calculer les scores.
+function timer() {
+    // Ici nous voulons simplement afficher le timer avec le temps à 0
+    let progress = $("<progress>", {
+        "class": "progressBar",
+        max: 100,
+        value: 0,
+    });
+    progress.appendTo("section#time");
+}
+
+// Incrémentation de ce timer = augmenter une variable d'une valeur donnée, ici 1.
+var addTime = (function() {
+    let count = 0;
+    return function() { count += 1; return count; };
+})();
+
+
+function startTimer() {
+    let milliseconds = durationGame * 60 * 1000; // Durée de la partie en millisecondes, nécessaire pour utiliser Interval.
+    // Définition de l'arrêt du jeu
+    setTimeout(function() {
+        // Quand on dépasse la valeur maximale (100), le jeu s'arrête et la partie est perdue
+        $("section#time progress.progressBar").attr(
+            "value", 100);
+        alert("QUEL DOMMAAAAGE, c'est perdu...")
+        //Du coup, on arrête la progression de la barre
+        clearInterval(game);
+    }, milliseconds)
+
+    // Mise à jour de la barre de défilement tant que le timer n'est pas à 100
+    let game = setInterval(function() {
+        $("section#time progress.progressBar").attr(
+            "value", addTime);
+    }, 1200) // 1200 est une valeur en millisecondes : on met à jour la progression de la barre toutes les secondes.
+}
 
 // On doit pouvoir retourner les cartes au clic sur l'une d'elle. La carte est identifiée par un id. 
 // Le plateau est chargé avec les cartes verso, on change la classe de la carte pour afficher le recto.
@@ -105,7 +147,7 @@ function action(event) {
                 // - enlever les "onclick" partout
                 // - arrêter le setTimeout de fin de partie
                 // alert(unescape(encodeURIComponent("Vous avez GAGNÉ !")));
-                alert("CHAMPION(NE) !");
+                alert("BRAVOOOO, c'est gagné !");
             }
         } else {
             // Les cartes sont différentes, on les laisse affichées quelques secondes et on les retourne
