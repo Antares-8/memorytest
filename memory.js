@@ -10,6 +10,7 @@ const displayTime = 750; // Temps d'affichage des cartes une fois retournées et
 var boardGame = []; // Tableau des cartes présentes sur le plateau de jeu
 var pick = []; // Cartes retournées par le joueur.
 var durationGame = 2; // Temps de jeu en minutes.
+var scores = []; // Tableau des scores. Le score étant lié au temps que dure une partie, on va utiliser l'objet Date pour avoir le début et la fin du jeu.
 
 // J'ai repris l'image d'exemple où le jeu comporte 28 cartes donc 14 paires. Et on a 18 cartes donc potentiellement 36 paires, mais ça fait peut-être beaucoup pour retrouver les paires.
 // Donc il faut choisir 14 cartes parmi les 18.
@@ -52,7 +53,6 @@ function shuffle(array) {
         array[element] = array[i];
         array[i] = temp;
     }
-
     return array;
 }
 
@@ -75,7 +75,6 @@ $(function() {
     // Affichage et lancement du timer
     timer();
     startTimer();
-    // demarreChronometre();
 });
 
 // Nous avons besoin d'un compteur de temps avec barre de progression pour pouvoir calculer les scores.
@@ -97,15 +96,17 @@ var addTime = (function() {
 
 
 function startTimer() {
+    scores.push(new Date());
     let milliseconds = durationGame * 60 * 1000; // Durée de la partie en millisecondes, nécessaire pour utiliser Interval.
     // Définition de l'arrêt du jeu
     setTimeout(function() {
         // Quand on dépasse la valeur maximale (100), le jeu s'arrête et la partie est perdue
         $("section#time progress.progressBar").attr(
             "value", 100);
-        alert("QUEL DOMMAAAAGE, c'est perdu...")
         //Du coup, on arrête la progression de la barre
         clearInterval(game);
+        alert("QUEL DOMMAAAAGE, c'est perdu...")
+        console.log("score : ", scores);
     }, milliseconds)
 
     // Mise à jour de la barre de défilement tant que le timer n'est pas à 100
@@ -140,13 +141,10 @@ function action(event) {
         if (sameCards()) {
             // Les cartes retournées sont identiques : on incrémente le nombre de paires trouvées
             nbPairsFound++;
-            // Si le nombre de paires trouvées est supérieur ou égal au nombre de paires existant dsur le plateau, on a gagné !
+            // Si le nombre de paires trouvées est supérieur ou égal au nombre de paires existant sur le plateau, on a gagné !
             if (nbPairsFound >= nbPairs) {
-                // TODO: créer une méthode pour ce moment (et les actions):
-                // - arrêter le chronomètre
-                // - enlever les "onclick" partout
-                // - arrêter le setTimeout de fin de partie
-                // alert(unescape(encodeURIComponent("Vous avez GAGNÉ !")));
+                scores.push(new Date());
+                console.log("score : ", scores);
                 alert("BRAVOOOO, c'est gagné !");
             }
         } else {
