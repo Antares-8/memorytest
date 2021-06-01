@@ -1,5 +1,16 @@
 section#header {
     text-align: center;
+    h1 {
+        font-size: 4em;
+        text-shadow: rgb(45, 189, 182) 1px 0 20px;
+    }
+    p {
+        text-align: center;
+        font-size: 1.5em;
+        box-shadow: 0px 5px 5px rgb(243, 63, 153);
+        width: 50%;
+        margin: 30px auto;
+    }
 }
 
 section#time {
@@ -15,7 +26,7 @@ section#time {
 
 section#main {
     margin: auto;
-    width: 750px;
+    width: 777px;
     margin: 0 auto;
 
     fruit.card {
@@ -23,6 +34,8 @@ section#main {
         height: 100px;
         width: 100px;
         margin-left: 5px;
+        border-radius: 10px;
+        border: 2px solid rgb(243, 63, 153);
     }
 
     fruit.recto {
@@ -32,7 +45,6 @@ section#main {
     
     fruit.verso {
         background: {
-            // color: rgb(128, 126, 126);
             color: rgb(80, 219, 219);
         }
     }
