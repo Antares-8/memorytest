@@ -5,7 +5,7 @@
 -- Par mesure de précaution, on commence par éliminer la table scores si jamais elle était déjà créée.
 DROP TABLE IF EXISTS `scores`;
 
--- L'avantage du SQL, c'est qu'il est assez naturel et compréhensible. Il fonctionne avec des mot-clés qui sont assez parlants ;)
+-- L'avantage du SQL, c'est qu'il est assez naturel et compréhensible. Il fonctionne avec des mot-clés, écrits en majuscule, qui sont assez parlants ;), des mots parlants, ça vous parle ?
 -- La requête CREATE TABLE sert donc à créer une table.
 -- A l'intérieur de cette table, on crée des champs en définissant certains critères comme leur type (INT, VARCHAR, DATETIME...), le fait de savoir si ce champ peut-être null ou non...
 -- Le champ 'id' servira de clé primaire : c'est le champ qui identifie de manière unique l'enregistrement d'une table. Il s'incrément automatiquement et ne peut pas être null
@@ -27,4 +27,10 @@ INSERT INTO `scores` VALUES (1,'2021-06-01 20:20:20','2021-06-01 20:21:49','Dr H
                             (5,'2021-06-01 20:18:00','2020-10-17 20:19:00','Thanos'); -- toujours terminer les requêtes SQL avec un ;
 
 -- Ce script peut être directement collé dans l'onglet SQL de phpMyAdmin, qui est une interface servant à manipuler les données. Les limites de l'outil étant qu'on n'est obligé de le faire "à la main", ce qui peut être fastidieux. 
+
+-- J'en profite pour détailler la requête de récupération des données présente dans le fichier index.php : 'SELECT * FROM scores ORDER BY id DESC LIMIT 5';
+-- Là encore, les mots-clé sont assez clairs : SELECT sert à sélectionner les données, l'étoile dit qu'on sélectionne toutes les données.
+-- FROM montre d'où viennent les données sélectionnées, en l'occurrence de la table 'scores'.
+-- ORDER BY sert à ordonner les données : ici on les organise par id. 
+-- Ce qui suit le ORDER BY définit comment on ordonne les données : DESC = en ordre décroissant, et LIMIT donne le nombre d'enregistrement qu'on souhaite afficher, ici 5.
 
