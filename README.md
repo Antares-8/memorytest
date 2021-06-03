@@ -1,6 +1,6 @@
 # memorytest
 
-Ceci est une tentative de création d'un jeu de memory (retrouver les paires) selon les spécifiactions d'Oclock.
+Ceci est une tentative de création d'un jeu de memory (retrouver les paires) selon les spécifications d'Oclock.
 
 ## Comment jouer ?
 
@@ -9,12 +9,12 @@ Le gros de cette partie du code se situe dans memory.js, fichier que je me suis 
 
 Le préprocesseur Sass a été utilisé ainsi que la librairie jQuery. 
 
-Et enfin, mon sens incroyable du design a permis d'arriver à un résultat que l'on peut sans hésiter qualifier d'abouti. <- _ceci était une phrase ironique_
+Et enfin, mon sens incroyable du design a permis d'arriver à un résultat que l'on peut sans hésiter qualifier d'abouti. <- _ceci était une phrase ironique._
 
 ## Et Côté back ?
 
 Alors là ça se complique, je n'ai pas eu le temps de tout faire...
-Sur la branche **BDD-connexion** se trouve la connexion à la base de donnée, comme son nom l'indique, et les requêtes créant la table, les champs et les données nécessaires à un affichage brut depuis le fichier index.php
+Sur la branche **BDD-connexion** se trouve la connexion à la base de donnée, comme son nom l'indique, et les requêtes créant la table, les champs et les données nécessaires à un affichage brut depuis le fichier index.php.  
 Je me suis attachée à bien décrire la connexion à la base et le fichier SQL, comme demandé dans les spécifications.
 
 Et il y a une dernière branche, **separateHTMLPHP**, sur laquelle j'ai commencé à transformer l'appli en utilisant de modèle MVC. 
@@ -27,4 +27,4 @@ Ce que j'ai fait :
  Ce que je n'ai pas fait : 
  - câbler les fonctions JS avec le back
  - la fonction de sauvegarde des données dans le controller, ainsi qu'un formulaire pour entrer ses identifiants
- - les vues, faute de temps...
+ - les vues
